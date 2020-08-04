@@ -95,11 +95,11 @@ class Trainer:
         my_pokemon.attack(opponent_pokemon)
 
     def switch_pokemon(self, pokemon):
-        if self.pokemons[pokemon].knocked_out:
+        if self.current_pokemon.knocked_out:
             print("Pokemon is knocked out. Cannot switch to specified Pokemon.\n")
         else:
             self.current_pokemon = pokemon
-            print("Switched pokemon to {}.\n".format(self.pokemons[pokemon].name))
+            print("Switched pokemon to {}.\n".format(self.current_pokemon.name))
 
 
 # The game
@@ -116,7 +116,6 @@ print(squirtle)
 
 print(trainer1)
 print(trainer2)
-
 
 trainer1.attack_other_trainer(trainer2)
 trainer2.attack_other_trainer(trainer1)
