@@ -22,7 +22,7 @@ class Pokemon:
 
     def gain_health(self, heal):
         if self.current_health <= 0:
-            self.revive()
+            self.revive
         health_gained = heal
         self.current_health += health_gained
         if self.current_health > self.max_health:
@@ -30,9 +30,9 @@ class Pokemon:
         print("{} has gained {} health. It now has {} health.\n".format(self.name, health_gained, self.current_health))
 
     def revive(self):
-        if not self.knocked_out:
-            self.current_health = self.max_health
-            print("{} was revived. It now has {} health.\n".format(self.name, self.current_health))
+        self.knocked_out == False
+        self.current_health = self.max_health
+        print("{} was revived. It now has {} health.\n".format(self.name, self.current_health))
 
     def is_knocked_out(self):
         if self.current_health <= 0:
