@@ -1,3 +1,6 @@
+from time import sleep
+# import tqdm
+
 class Pokemon:
     def __init__(self, name, level, type):
         self.name = name
@@ -16,6 +19,7 @@ class Pokemon:
         self.current_health -= health_lost
         if self.current_health <= 0:
             self.is_knocked_out()
+            self.knocked_out = True
         else:
             print(
                 "{} has lost {} health. It now has {} health left.\n".format(self.name, health_lost,
@@ -98,12 +102,18 @@ class Trainer:
         opponent_pokemon = other_pokemon.current_pokemon
         my_pokemon.attack(opponent_pokemon)
 
-    def switch_pokemon(self, pokemon):
-        if pokemon.knocked_out:
-            print("Pokemon is knocked out. Cannot switch to specified Pokemon.\n")
-        else:
-            self.current_pokemon = pokemon
-            print("Switched pokemon to {}.\n".format(pokemon.name))
+    def switch_pokemon(self):
+
+        # if pokemon.knocked_out:
+            # print("Pokemon is knocked out. Cannot switch to specified Pokemon.\n")
+            # return False
+
+        for pokemon in self.pokemons:
+            if not pokemon.knocked_out:
+                self.current_pokemon = pokemon
+                print("Switched pokemon to {}.\n".format(pokemon.name))
+                return True
+        return False
 
 
 # Main Function Starts from here
@@ -131,7 +141,7 @@ for i in range(trainer1_pokemons_no):
 # trainer1_pokemons = []
 # poke1 = Pokemon("poke1", 2, "Fire")
 # trainer1_pokemons.append(poke1)
-# poke1 = Pokemon("poke2", 3, "Water")
+# poke2 = Pokemon("poke2", 3, "Water")
 # trainer1_pokemons.append(poke2)
 # trainer1_currently_active = trainer1_pokemons[0]
 
@@ -143,7 +153,7 @@ for i in range(trainer1_pokemons_no):
 # trainer2_currently_active = trainer2_pokemons[0]
 
 
-# trainer1_potions = 2
+# #### trainer1_potions = 2
 if trainer1_pokemons_no > 1:
     trainer1_pokemon_choice = input("Enter the pokemon you want to use: ")
     for i in trainer1_pokemons:
@@ -152,7 +162,7 @@ if trainer1_pokemons_no > 1:
 else:
     trainer1_currently_active = trainer1_pokemons[0]
 
-# Trainer 2 Input
+# # Trainer 2 Input
 trainer2_name = input("Enter Your name: ")
 trainer2_pokemons_no = int(input("Enter the number of pokemons you have: "))
 trainer2_pokemons = []
@@ -188,11 +198,26 @@ trainer2 = Trainer(trainer2_name, trainer2_pokemons, 2, trainer2_currently_activ
 print(trainer1)
 print(trainer2)
 
+print("###########################################\n\n")
+print("Game Starting...")
 
-trainer1.attack_other_trainer(trainer2)
-trainer2.attack_other_trainer(trainer1)
-trainer1.attack_other_trainer(trainer2)
-trainer2.use_potion()
-# trainer2.switch_pokemon(trainer2.pokemons[1])
-trainer1.attack_other_trainer(trainer2)
-trainer2.attack_other_trainer(trainer1)
+# trainer1.attack_other_trainer(trainer2)
+# trainer2.attack_other_trainer(trainer1)
+# trainer1.attack_other_trainer(trainer2)
+# trainer2.use_potion()
+# # trainer2.switch_pokemon(trainer2.pokemons[1])
+# trainer1.attack_other_trainer(trainer2)
+# trainer2.attack_other_trainer(trainer1)
+
+while(1):
+    trainer1.attack_other_trainer(trainer2)
+    if trainer2.current_pokemon.knocked_out:
+        if not trainer2.switch_pokemon():
+            print(f"{trainer1.name} is winner")
+            break
+    sleep(1)
+    trainer2.attack_other_trainer(trainer1)
+    if trainer1.current_pokemon.knocked_out:
+        if not trainer1.switch_pokemon():
+            print(f"{trainer2.name} is winner")
+            break
