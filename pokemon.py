@@ -43,6 +43,9 @@ class Pokemon:
         print("{} is attacking {}.\n".format(self.name, other_pokemon.name))
         if self.knocked_out:
             print("Cannot attack as Pokemon is knocked out.\n")
+        elif self.type == other_pokemon.type:
+            print("{} attacked {} for {} damage.\n".format(self.name, other_pokemon.name, self.level))
+            other_pokemon.lose_health(self.level)
         elif self.type == "Fire":
             if other_pokemon.type == "Grass":
                 print("{} attacked {} for {} damage.\n".format(self.name, other_pokemon.name, self.level * 2))
@@ -103,11 +106,13 @@ class Trainer:
             print("Switched pokemon to {}.\n".format(pokemon.name))
 
 
+# Main Function Starts from here
 # The game
-pikachu = Pokemon("Pikachu", 3, "Fire")
-bulbasaur = Pokemon("Bulbasaur", 3, "Grass")
-squirtle = Pokemon("Squirtle", 3, "Water")
+# pikachu = Pokemon("Pikachu", 3, "Fire")
+# bulbasaur = Pokemon("Bulbasaur", 3, "Grass")
+# squirtle = Pokemon("Squirtle", 3, "Water")
 
+# Trainer 1 Input
 trainer1_name = input("Enter Your name: ")
 trainer1_pokemons_no = int(input("Enter the number of pokemons you have: "))
 trainer1_pokemons = []
@@ -121,6 +126,23 @@ for i in range(trainer1_pokemons_no):
     new_pokemon = Pokemon(name.title(), level, type)
     trainer1_pokemons.append(new_pokemon)
 
+# trainer1_name = 'trainer1'
+# trainer1_pokemons_no = 2
+# trainer1_pokemons = []
+# poke1 = Pokemon("poke1", 2, "Fire")
+# trainer1_pokemons.append(poke1)
+# poke1 = Pokemon("poke2", 3, "Water")
+# trainer1_pokemons.append(poke2)
+# trainer1_currently_active = trainer1_pokemons[0]
+
+# trainer2_name = 'trainer2'
+# trainer2_pokemons_no = 1
+# trainer2_pokemons = []
+# poke3 = Pokemon("poke3", 5, "Fire")
+# trainer2_pokemons.append(poke3)
+# trainer2_currently_active = trainer2_pokemons[0]
+
+
 # trainer1_potions = 2
 if trainer1_pokemons_no > 1:
     trainer1_pokemon_choice = input("Enter the pokemon you want to use: ")
@@ -130,6 +152,7 @@ if trainer1_pokemons_no > 1:
 else:
     trainer1_currently_active = trainer1_pokemons[0]
 
+# Trainer 2 Input
 trainer2_name = input("Enter Your name: ")
 trainer2_pokemons_no = int(input("Enter the number of pokemons you have: "))
 trainer2_pokemons = []
@@ -152,8 +175,8 @@ if trainer2_pokemons_no > 1:
 else:
     trainer2_currently_active = trainer2_pokemons[0]
 
-print(trainer1_currently_active)
-print(trainer2_currently_active)
+print(f'trainer1poke: {trainer1_currently_active}')
+print(f'trainer1poke: {trainer2_currently_active}')
 
 trainer1 = Trainer(trainer1_name, trainer1_pokemons, 2, trainer1_currently_active)
 trainer2 = Trainer(trainer2_name, trainer2_pokemons, 2, trainer2_currently_active)
