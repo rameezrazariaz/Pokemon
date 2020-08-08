@@ -1,5 +1,8 @@
 from time import sleep
-# import tqdm
+
+# global vars
+DEFAULT_POWERS = ['fire','water','grass']
+
 
 class Pokemon:
     def __init__(self, name, level, type):
@@ -108,13 +111,27 @@ class Trainer:
             # print("Pokemon is knocked out. Cannot switch to specified Pokemon.\n")
             # return False
 
+        livingPokamons = []
+        flag = False
         for pokemon in self.pokemons:
             if not pokemon.knocked_out:
-                self.current_pokemon = pokemon
-                print("Switched pokemon to {}.\n".format(pokemon.name))
-                return True
-        return False
+                livingPokamons.append(pokemon)
+                flag = True
+        if flag:
+            self.current_pokemon = livingPokamons[getChoice(livingPokamons)]
+            print("Switched pokemon to {}.\n".format(pokemon.name))
+        return flag
 
+# choice form list
+def getChoice(pokamonList):
+    if len(pokamonList) == 1:
+        return 0
+    else:
+        print("Select : ",end="")
+        for i in range(len(pokamonList)):
+            print(f"{i+1} - {pokamonList[i]}, ",end="")
+        choice = int(input("\nChoice : "))
+        return choice-1
 
 # Main Function Starts from here
 # The game
@@ -126,15 +143,17 @@ class Trainer:
 trainer1_name = input("Enter Your name: ")
 trainer1_pokemons_no = int(input("Enter the number of pokemons you have: "))
 trainer1_pokemons = []
+trainer1PokemonNames = []
 
 for i in range(trainer1_pokemons_no):
     name = input("Enter the name of Pokemon no " + str(i + 1) + ": ")
     level = int(input("Enter the level of " + name + ": "))
-    type = input("Enter the type of " + name + ": ")
-    print()
+    print("Enter the type of " + name)
+    type = DEFAULT_POWERS[getChoice(DEFAULT_POWERS)]
 
     new_pokemon = Pokemon(name.title(), level, type)
     trainer1_pokemons.append(new_pokemon)
+    trainer1PokemonNames.append(name.title())
 
 # trainer1_name = 'trainer1'
 # trainer1_pokemons_no = 2
@@ -154,36 +173,25 @@ for i in range(trainer1_pokemons_no):
 
 
 # #### trainer1_potions = 2
-if trainer1_pokemons_no > 1:
-    trainer1_pokemon_choice = input("Enter the pokemon you want to use: ")
-    for i in trainer1_pokemons:
-        if i.name == trainer1_pokemon_choice.title():
-            trainer1_currently_active = i
-else:
-    trainer1_currently_active = trainer1_pokemons[0]
+trainer1_currently_active = trainer1_pokemons[getChoice(trainer1PokemonNames)]
 
 # # Trainer 2 Input
 trainer2_name = input("Enter Your name: ")
 trainer2_pokemons_no = int(input("Enter the number of pokemons you have: "))
 trainer2_pokemons = []
+trainer2PokemonNames = []
 
 for i in range(trainer2_pokemons_no):
     name = input("Enter the name of Pokemon no " + str(i + 1) + ": ")
     level = int(input("Enter the level of " + name + ": "))
-    type = input("Enter the type of " + name + ": ")
-    print()
+    print("Enter the type of " + name)
+    type = DEFAULT_POWERS[getChoice(DEFAULT_POWERS)]
 
     new_pokemon2 = Pokemon(name.title(), level, type)
     trainer2_pokemons.append(new_pokemon2)
+    trainer2PokemonNames.append(name.title())
 
-# trainer2_potions = 2
-if trainer2_pokemons_no > 1:
-    trainer2_pokemon_choice = input("Enter the pokemon you want to use: ")
-    for i in trainer2_pokemons:
-        if i.name == trainer2_pokemon_choice.title():
-            trainer2_currently_active = i
-else:
-    trainer2_currently_active = trainer2_pokemons[0]
+trainer2_currently_active = trainer2_pokemons[getChoice(trainer2PokemonNames)]
 
 print(trainer1_currently_active)
 print(trainer2_currently_active)

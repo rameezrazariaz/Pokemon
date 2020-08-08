@@ -1,2 +1,1 @@
-")
-            break
+trainer1_currently_active
