@@ -43,28 +43,28 @@ class Pokemon:
         print("{} is attacking {}.\n".format(self.name, other_pokemon.name))
         if self.knocked_out:
             print("Cannot attack as Pokemon is knocked out.\n")
-        elif self.type == other_pokemon.type:
+        elif self.type.lower() == other_pokemon.type.lower():
             print("{} attacked {} for {} damage.\n".format(self.name, other_pokemon.name, self.level))
             other_pokemon.lose_health(self.level)
-        elif self.type == "Fire":
-            if other_pokemon.type == "Grass":
+        elif self.type.lower() == "fire":
+            if other_pokemon.type.lower() == "grass":
                 print("{} attacked {} for {} damage.\n".format(self.name, other_pokemon.name, self.level * 2))
                 other_pokemon.lose_health(self.level * 2)
-            elif other_pokemon.type == "Water":
+            elif other_pokemon.type.lower() == "water":
                 print("{} attacked {} for {} damage.\n".format(self.name, other_pokemon.name, self.level * 0.5))
                 other_pokemon.lose_health(self.level * 0.5)
-        elif self.type == "Grass":
-            if other_pokemon.type == "Fire":
+        elif self.type.lower() == "grass":
+            if other_pokemon.type.lower() == "fire":
                 print("{} attacked {} for {} damage.\n".format(self.name, other_pokemon.name, self.level * 0.5))
                 other_pokemon.lose_health(self.level * 0.5)
-            elif other_pokemon.type == "Water":
+            elif other_pokemon.type.lower() == "water":
                 print("{} attacked {} for {} damage.\n".format(self.name, other_pokemon.name, self.level * 2))
                 other_pokemon.lose_health(self.level * 2)
-        elif self.type == "Water":
-            if other_pokemon.type == "Fire":
+        elif self.type.lower() == "water":
+            if other_pokemon.type.lower() == "fire":
                 print("{} attacked {} for {} damage.\n".format(self.name, other_pokemon.name, self.level * 2))
                 other_pokemon.lose_health(self.level * 2)
-            elif other_pokemon.type == "Grass":
+            elif other_pokemon.type.lower() == "grass":
                 print("{} attacked {} for {} damage.\n".format(self.name, other_pokemon.name, self.level * 0.5))
                 other_pokemon.lose_health(self.level * 0.5)
 
@@ -175,8 +175,8 @@ if trainer2_pokemons_no > 1:
 else:
     trainer2_currently_active = trainer2_pokemons[0]
 
-print(f'trainer1poke: {trainer1_currently_active}')
-print(f'trainer1poke: {trainer2_currently_active}')
+print(trainer1_currently_active)
+print(trainer2_currently_active)
 
 trainer1 = Trainer(trainer1_name, trainer1_pokemons, 2, trainer1_currently_active)
 trainer2 = Trainer(trainer2_name, trainer2_pokemons, 2, trainer2_currently_active)
